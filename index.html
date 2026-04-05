@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALAA WEBSITE</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --hover-color: #3498db;
+            --bg-color: #ffffff;
+        }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--bg-color);
+            padding: 15px 30px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .navbar-brand img {
+            height: 60px;
+            width: auto;
+            display: block;
+        }
+        .navbar-nav {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar-nav li {
+            margin-left: 25px;
+        }
+        .navbar-nav a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .navbar-nav a:hover {
+            color: var(--hover-color);
+        }
+        .menu-toggle {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+        @media (max-width: 768px) {
+            .navbar-nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-color);
+                box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
+                text-align: center;
+            }
+            .navbar-nav.active {
+                display: flex;
+            }
+            .navbar-nav li {
+                margin: 0;
+                padding: 15px 0;
+                border-top: 1px solid #f0f0f0;
+            }
+            .menu-toggle {
+                display: block;
+            }
+        }
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 100px 20px;
+            background-color: #f8f9fa;
+            min-height: calc(100vh - 90px);
+            box-sizing: border-box;
+        gap: 1.5rem;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin: 0;
+        }
+        .institution {
+            font-size: 0.95rem;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1.6;
+            margin-bottom: -0.5rem;
+        }
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: #555555;
+            max-width: 800px;
+            margin: 0;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+        .credits {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+            background: #ffffff;
+            padding: 2rem 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #f0f0f0;
+        }
+        .credit-block {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+        .credit-block span {
+            font-size: 0.9rem;
+            color: #95a5a6;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .credit-block strong {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .hero-subtitle { font-size: 1.2rem; }
+            .institution { font-size: 0.85rem; }
+            .credits { padding: 1.5rem; width: 100%; }
+            .credit-block strong { font-size: 1.1rem; }
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            display: inline-block;
+            padding: 14px 28px;
+            background-color: var(--hover-color);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .btn-primary:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            display: inline-block;
+            padding: 14px 28px;
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+        .presentation {
+            padding: 80px 20px;
+            background-color: var(--bg-color);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .presentation-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        @media (min-width: 768px) {
+            .presentation-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1024px) {
+            .presentation-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        .card {
+            background: #ffffff;
+            border: none;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.7s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.7s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+        }
+        .card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: block;
+        }
+        .card h3 {
+            color: var(--primary-color);
+            font-size: 1.25rem;
+            margin: 0 0 15px 0;
+            line-height: 1.4;
+        }
+        .card-list {
+            text-align: left;
+            list-style-type: disc;
+            padding-left: 25px;
+            margin-top: 15px;
+            color: #2d3748;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+        .card-list li {
+            margin-bottom: 8px;
+        }
+        .card-text {
+            text-align: left;
+            color: #2d3748;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        .impact-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+        .impact-list li {
+            color: white;
+            margin-bottom: 5px;
+            padding: 8px;
+            text-align: center;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .impact-list li:nth-child(1) {
+            width: 70%;
+            margin: 5px auto;
+            background: #6b46c1;
+        }
+        .impact-list li:nth-child(2) {
+            width: 80%;
+            margin: 5px auto;
+            background: #805ad5;
+        }
+        .impact-list li:nth-child(3) {
+            width: 90%;
+            margin: 5px auto;
+            background: #3182ce;
+        }
+        .impact-list li:nth-child(4) {
+            width: 100%;
+            margin: 5px auto;
+            background: #d69e2e;
+        }
+        .references-list {
+            list-style-type: square;
+            padding-left: 20px;
+            font-size: 0.9rem;
+            color: #2d3748;
+            text-align: left;
+        }
+        .references-list li {
+            margin-bottom: 5px;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .download-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="navbar-brand">
+            <img src="LOGO.webp" alt="ALAA WEBSITE Logo">
+        </a>
+        <div class="menu-toggle" id="mobile-menu">
+            ☰
+        </div>
+        <ul class="navbar-nav" id="nav-list">
+            <li><a href="#" id="home-link">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="hero" class="hero fade-in">
+        <div class="institution">
+            Higher Normal School of Saida - English department<br>
+            UNIVERSITY of SAIDA MOULAY TAHAR
+        </div>
+        <h1>Reaching Struggling Students</h1>
+        <p class="hero-subtitle">Understanding, Identifying &amp; Supporting Learners</p>
+        <div class="credits">
+            <div class="credit-block">
+                <span>Students</span>
+                <strong>Cherifi Leila Nour El houda &amp; Djellouli Allaa Abir</strong>
+            </div>
+            <div class="credit-block">
+                <span>Supervisor</span>
+                <strong>Ms. Azzeddine Bencherab</strong>
+            </div>
+        </div>
+        <div class="hero-buttons">
+            <a href="#" id="view-btn" class="btn-primary">View Presentation</a>
+            <a href="Higher Normal School of Saida.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">View Research Paper</a>
+        </div>
+    </section>
+
+    <section id="presentation" class="presentation hidden">
+        <div class="presentation-grid">
+            <div class="card">
+                <img src="intro-image.jpg" alt="Introduction to struggling students illustration" class="card-img">
+                <h3>Introduction</h3>
+                <p class="card-text">Some students face academic or behavioral challenges that affect their learning and classroom environment. Recognizing their unique needs and providing early support is essential to help them succeed.</p>
+            </div>
+            <div class="card">
+                <img src="definition_image.jpg" alt="Definition of a struggling student illustration" class="card-img">
+                <h3>Definition</h3>
+                <p class="card-text">A struggling student rarely turs completed assignments, poor quiz/test results, might work longer than others, makes very little progress.</p>
+            </div>
+            <div class="card">
+                <img src="impact_image.jpg" alt="Impact on students" class="card-img">
+                <h3>Impact on students' studies</h3>
+                <ul class="impact-list">
+                    <li>1. Low motivation</li>
+                    <li>2. Low confidence</li>
+                    <li>3. Risk of failure</li>
+                    <li>4. Dropping out of school</li>
+                </ul>
+            </div>
+            <div class="card">
+                <img src="struggle_reasons.jpg" alt="Reasons students struggle" class="card-img">
+                <h3>Why do students struggle in schools?</h3>
+                <ul class="card-list">
+                    <li>Ineffective teaching</li>
+                    <li>Lack of differentiation</li>
+                    <li>Family problem</li>
+                    <li>Financial stress</li>
+                    <li>Trauma/ Bullying</li>
+                </ul>
+            </div>
+            <div class="card">
+                <img src="teacher_intervene.jpg" alt="Why teachers intervene" class="card-img">
+                <h3>Why should teachers intervene?</h3>
+                <ul class="card-list">
+                    <li>Encourage inclusion</li>
+                    <li>Build strong relationships</li>
+                    <li>Improve classroom environment</li>
+                    <li>Prevent future failures</li>
+                </ul>
+            </div>
+            <div class="card">
+                <img src="identify_students.jpg" alt="Identify struggling students" class="card-img">
+                <h3>How to identify struggling students?</h3>
+                <ul class="card-list">
+                    <li>Consistent below-average performance</li>
+                    <li>Disengagement</li>
+                    <li>Incomplete work</li>
+                    <li>Withdrawal or frustration</li>
+                </ul>
+            </div>
+            <div class="card">
+                <img src="teachers_help.jpg" alt="How teachers help" class="card-img">
+                <h3>How can teachers help?</h3>
+                <p class="card-text" style="font-weight: 500;">Teachers can use various methods to support their learners by:</p>
+                <ul class="card-list">
+                    <li>using charts and pictures</li>
+                    <li>using differentiated instruction (VAK)</li>
+                    <li>providing small group support</li>
+                    <li>giving immediate feedback</li>
+                    <li>encouraging and motivating them</li>
+                    <li>involving parents</li>
+                </ul>
+            </div>
+            <div class="card">
+                <img src="conclusion_image.jpg" alt="Conclusion and community support" class="card-img">
+                <h3>Conclusion</h3>
+                <p class="card-text" style="font-weight: 500;">Struggling students require early identification &amp; structured support as effective interventions benefit: the student, the family, and the school community.</p>
+                <h4 style="color: var(--primary-color); margin-bottom: 10px; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">References</h4>
+                <ul class="references-list">
+                    <li>Cutler, D. (n.d.). Student engagement: Strategies for reaching struggling students.</li>
+                    <li>Alphapals. (n.d.). 10 tips for reaching your struggling learner.</li>
+                    <li>Basaleh, A. (2023). How to help struggling students in the classroom.</li>
+                    <li>Estes, L. (n.d.). Supporting struggling learners.</li>
+                    <li>SlideShare. (n.d.). Supporting struggling students webinar.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="download-container">
+            <a href="#" id="download-pdf-btn" class="btn-primary">
+                📥 Download Presentation (PDF)
+            </a>
+        </div>
+    </section>
+
+    <!-- تضمين مكتبة html2pdf لتحويل محتوى الموقع إلى ملف PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <script>
+        document.getElementById('mobile-menu').addEventListener('click', function() {
+            document.getElementById('nav-list').classList.toggle('active');
+        });
+
+        document.getElementById('view-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('hero').classList.add('hidden');
+            
+            const presentation = document.getElementById('presentation');
+            presentation.classList.remove('hidden');
+        });
+
+        document.getElementById('home-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            const presentation = document.getElementById('presentation');
+            presentation.classList.add('hidden');
+            
+            const hero = document.getElementById('hero');
+            hero.classList.remove('hidden');
+            hero.classList.remove('fade-in');
+            void hero.offsetWidth; // تشغيل الحركة الرئيسية من جديد
+            hero.classList.add('fade-in');
+        });
+
+        // برمجة زر تحميل الـ PDF
+        document.getElementById('download-pdf-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const btn = this;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '⏳ Generating PDF... Please wait'; // تغيير النص أثناء المعالجة
+            
+            const element = document.querySelector('.presentation-grid');
+            
+            const opt = {
+                margin:       0.3,
+                filename:     'Reaching_Struggling_Students.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            
+            // إنشاء وتحميل الملف
+            html2pdf().set(opt).from(element).save().then(function() {
+                btn.innerHTML = originalText; // إعادة النص الأصلي بعد التحميل
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.15
+        };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.card').forEach(card => observer.observe(card));
+    </script>
+</body>
+</html>
