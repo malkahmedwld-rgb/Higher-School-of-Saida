@@ -353,6 +353,23 @@
         #skip-video-btn:hover {
             background-color: rgba(255, 255, 255, 0.4);
         }
+        #unmute-btn {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            padding: 10px 20px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border: 1px solid #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+            z-index: 10000;
+        }
+        #unmute-btn:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
     </style>
 </head>
 <body>
@@ -363,6 +380,7 @@
             Your browser does not support the video tag.
         </video>
         <button id="skip-video-btn">Skip Intro</button>
+        <button id="unmute-btn">🔊 Unmute</button>
     </div>
 
     <nav class="navbar">
@@ -560,6 +578,7 @@
         const videoContainer = document.getElementById('intro-video-container');
         const introVideo = document.getElementById('intro-video');
         const skipBtn = document.getElementById('skip-video-btn');
+        const unmuteBtn = document.getElementById('unmute-btn');
 
         function endIntro() {
             videoContainer.classList.add('video-hidden');
@@ -568,6 +587,17 @@
 
         introVideo.addEventListener('ended', endIntro);
         skipBtn.addEventListener('click', endIntro);
+
+        // برمجة زر تشغيل/كتم الصوت
+        unmuteBtn.addEventListener('click', function() {
+            if (introVideo.muted) {
+                introVideo.muted = false;
+                unmuteBtn.innerHTML = '🔇 Mute';
+            } else {
+                introVideo.muted = true;
+                unmuteBtn.innerHTML = '🔊 Unmute';
+            }
+        });
     </script>
 </body>
 </html>
